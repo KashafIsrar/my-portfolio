@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Interests from './components/Interests';
 import Contact from './components/Contact';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
         <About />
         <Skills />
         <Projects />
+        <Interests />
         <Contact />
       </main>
     </div>
