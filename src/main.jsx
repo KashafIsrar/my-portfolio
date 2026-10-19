@@ -1,5 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import '@fontsource/bruno-ace-sc/400.css'
+import '@fontsource/orbitron/600.css'
+import '@fontsource/orbitron/700.css'
+import '@fontsource/rajdhani/400.css'
+import '@fontsource/rajdhani/500.css'
+import '@fontsource/rajdhani/600.css'
+import '@fontsource/share-tech-mono/400.css'
 import App from './App.jsx'
 import './style.css'
 

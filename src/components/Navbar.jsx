@@ -1,60 +1,95 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+
+const navLinks = [
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Interests', href: '#interests' },
+  { name: 'Contact', href: '#contact' },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Interests", href: "#interests" },
-    { name: "Contact", href: "#contact" }
-  ];
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        
-        {/* Logo / Name */}
-        <a href="#" className="text-xl font-bold text-white tracking-tight hover:text-indigo-400 transition">
-          Kashaf Israr<span className="text-indigo-500">.</span>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#d9fced]/[0.08] bg-[#07240f]/90 backdrop-blur-md">
+      <nav aria-label="Main navigation" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
+        <a href="#" className="font-mono text-lg font-bold tracking-tight text-[#d9fced] transition hover:text-[#09bbc8]">
+          KI<span className="text-[#09bbc8]">_</span>
+          <span className="sr-only">Kashaf Israr — back to top</span>
         </a>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          {navLinks.map((link, idx) => (
-            <a key={idx} href={link.href} className="hover:text-indigo-400 transition">
+        <div className="hidden items-center gap-8 font-mono text-xs uppercase tracking-widest text-slate-400 md:flex">
+          {navLinks.map((link) => (
+            <a key={link.href} href={link.href} className="transition hover:text-[#09bbc8]">
               {link.name}
             </a>
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className="md:hidden text-slate-400 hover:text-white"
+        <motion.button
+          type="button"
+          aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsOpen((open) => !open)}
+          whileTap={{ scale: 0.92 }}
+          className="grid h-10 w-10 place-items-center rounded-sm border border-[#d9fced]/10 text-slate-200 transition hover:border-[#09bbc8]/50 hover:text-[#09bbc8] md:hidden"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-          </svg>
-        </button>
-      </div>
+          {isOpen ? <X size={19} /> : <Menu size={19} />}
+        </motion.button>
+      </nav>
 
-      {/* Mobile Dropdown */}
-      {isOpen && (
-        <div className="md:hidden bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col gap-4 text-sm font-medium text-slate-300">
-          {navLinks.map((link, idx) => (
-            <a 
-              key={idx} 
-              href={link.href} 
-              onClick={() => setIsOpen(false)}
-              className="hover:text-indigo-400 transition"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-x-0 bottom-0 top-16 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+          >
+            <motion.div
+              id="mobile-navigation"
+              aria-label="Mobile navigation"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+              className="border-b border-[#09bbc8]/20 bg-[#07240f]/98 px-6 py-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-md"
             >
-              {link.name}
-            </a>
-          ))}
-        </div>
-      )}
-    </nav>
+              <div className="flex flex-col gap-1">
+                {navLinks.map((link, index) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.04 }}
+                    className="rounded-sm px-3 py-3 font-mono text-sm uppercase tracking-widest text-slate-300 transition hover:bg-[#09bbc8]/[0.06] hover:text-[#d9fced]"
+                  >
+                    <span className="mr-3 text-[#09bbc8]/60">0{index + 1}</span>
+                    {link.name}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

@@ -1,52 +1,55 @@
-import React from 'react';
+import { Braces, Database, Layers3 } from 'lucide-react';
+import { MotionCard, RevealSection } from './Motion';
+
+const skillCategories = [
+  {
+    icon: Braces,
+    category: 'Application Engineering',
+    skills: ['Java', 'Spring Boot', 'React', 'Python', 'JavaScript', 'Tailwind CSS', 'Framer Motion'],
+  },
+  {
+    icon: Database,
+    category: 'Data & Integration',
+    skills: ['PostgreSQL', 'SQL Server', 'REST APIs', 'Database Design'],
+  },
+  {
+    icon: Layers3,
+    category: 'Engineering Foundations',
+    skills: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'Software Architecture', 'DBMS'],
+  },
+];
 
 export default function Skills() {
-  const skillCategories = [
-    {
-      category: "Full-Stack Development",
-      skills: ["React", "Spring Boot", "Java", "Python", "JavaScript", "HTML5 / CSS3", "Tailwind CSS"]
-    },
-    {
-      category: "Databases & Security",
-      skills: ["PostgreSQL", "SQL Server", "REST APIs", "Biometric Auth", "OTP Verification"]
-    },
-    {
-      category: "Core Computer Science",
-      skills: ["Data Structures & Algorithms", "Object-Oriented Programming", "Software Architecture", "DBMS"]
-    }
-  ];
-
   return (
-    <section id="skills" className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-800">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-white mb-3">Skills & Technologies</h2>
-        <p className="text-slate-400 max-w-xl mx-auto">
-          Technologies and core engineering concepts I use to design and build application systems.
+    <RevealSection id="skills" title="Skills and technologies" className="mx-auto max-w-7xl scroll-mt-20 border-t border-white/[0.08] px-5 py-24 sm:px-8">
+      <div className="mb-12 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-[#09bbc8]">02 / Stack</p>
+          <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Tools of the trade.</h2>
+        </div>
+        <p className="max-w-md text-sm leading-6 text-slate-500">
+          A practical toolkit for building, connecting, and reasoning about software systems.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        {skillCategories.map((group, idx) => (
-          <div 
-            key={idx} 
-            className="p-6 rounded-xl bg-slate-800/40 border border-slate-700/60 flex flex-col justify-between"
-          >
-            <h3 className="text-xl font-semibold text-indigo-400 mb-4 border-b border-slate-700/80 pb-2">
-              {group.category}
-            </h3>
+      <div className="grid gap-4 md:grid-cols-3">
+        {skillCategories.map(({ icon: Icon, category, skills }, index) => (
+          <MotionCard key={category} title={category} delay={index * 0.08} className="surface-card p-6">
+            <div className="mb-5 flex items-center justify-between">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-slate-600">0{index + 1}</span>
+              <Icon size={18} className="text-[#09bbc8]" aria-hidden="true" />
+            </div>
+            <h3 className="mb-5 text-lg font-semibold text-white">{category}</h3>
             <div className="flex flex-wrap gap-2">
-              {group.skills.map((skill, sIdx) => (
-                <span 
-                  key={sIdx}
-                  className="px-3 py-1.5 rounded-md bg-slate-700/50 text-slate-200 text-sm border border-slate-600/50"
-                >
+              {skills.map((skill) => (
+                <span key={skill} className="rounded border border-white/[0.09] bg-white/[0.025] px-2.5 py-1.5 font-mono text-[11px] text-slate-400">
                   {skill}
                 </span>
               ))}
             </div>
-          </div>
+          </MotionCard>
         ))}
       </div>
-    </section>
+    </RevealSection>
   );
 }
