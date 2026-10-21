@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BriefcaseBusiness, Check, Code2, Copy, Mail, Phone, Send, X } from 'lucide-react';
-import { InteractiveContainer, RevealSection } from './Motion';
+import { RevealSection } from './Motion';
 
 const email = 'kashaf.israr09@gmail.com';
 const phone = '+923353605737';
@@ -43,7 +43,7 @@ export default function Contact() {
   }
 
   return (
-    <RevealSection id="contact" title="Contact" className="mx-auto max-w-7xl scroll-mt-20 border-t border-white/[0.08] px-5 pb-10 pt-24 sm:px-8">
+    <RevealSection id="contact" title="Contact" className="editorial-section mx-auto max-w-7xl scroll-mt-20 border-t border-white/[0.08] px-5 pb-10 pt-24 sm:px-8">
       <div className="grid gap-12 pb-20 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-[#09bbc8]">05 / Contact</p>
@@ -52,8 +52,8 @@ export default function Contact() {
             I’m open to internship opportunities and collaborations. Reach out directly or send a note.
           </p>
 
-          <div className="mt-8 space-y-3">
-            <InteractiveContainer as="div" title="Email contact" className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] p-3">
+          <div className="editorial-contact-links mt-8">
+            <div className="flex items-center gap-3 py-3">
               <Mail size={16} className="shrink-0 text-[#09bbc8]" />
               <a className="min-w-0 flex-1 truncate text-sm text-slate-300 transition hover:text-[#d9fced]" href={`mailto:${email}`}>
                 {email}
@@ -66,8 +66,8 @@ export default function Contact() {
               >
                 <Copy size={15} />
               </button>
-            </InteractiveContainer>
-            <InteractiveContainer as="div" title="Phone contact" className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.02] p-3">
+            </div>
+            <div className="flex items-center gap-3 py-3">
               <Phone size={16} className="shrink-0 text-[#405ffa]" />
               <a className="min-w-0 flex-1 text-sm text-slate-300 transition hover:text-[#d9fced]" href={`tel:${phone}`}>
                 +92 335 360 5737
@@ -80,7 +80,7 @@ export default function Contact() {
               >
                 <Copy size={15} />
               </button>
-            </InteractiveContainer>
+            </div>
           </div>
 
           <div className="mt-6 flex gap-4">
@@ -93,8 +93,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <InteractiveContainer as="div" title="Contact form" className="surface-card p-5 sm:p-7">
-        <form onSubmit={handleSubmit} className="grid gap-4">
+        <form onSubmit={handleSubmit} className="editorial-contact-form grid gap-4">
           <p className="font-mono text-xs uppercase tracking-widest text-slate-400">Send a transmission</p>
           <label className="grid gap-2 text-xs text-slate-400">
             Name
@@ -133,7 +132,7 @@ export default function Contact() {
           </label>
           <motion.button
             type="submit"
-            whileHover={{ y: -2, borderColor: 'rgba(9,187,200,0.65)' }}
+            whileHover={{ y: -2, borderColor: 'rgba(200,199,147,0.65)' }}
             whileTap={{ scale: 0.98 }}
             className="mt-1 inline-flex items-center justify-center gap-2 rounded-sm border border-[#09bbc8]/40 bg-[#09bbc8]/[0.08] px-5 py-3 font-mono text-xs uppercase tracking-wider text-[#d9fced] transition hover:bg-[#09bbc8]/[0.14]"
           >
@@ -143,7 +142,6 @@ export default function Contact() {
             This opens your default email app with the message filled in; nothing is sent to a server.
           </p>
         </form>
-        </InteractiveContainer>
       </div>
 
       <footer className="flex flex-col items-center justify-between gap-4 border-t border-white/[0.08] pt-6 text-center sm:flex-row sm:text-left">

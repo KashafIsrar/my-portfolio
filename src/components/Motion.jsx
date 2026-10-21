@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 
 const motionElements = {
+  aside: motion.aside,
   article: motion.article,
   div: motion.div,
   section: motion.section,
@@ -36,7 +37,6 @@ export function InteractiveContainer({
 
   function trackPointer(event) {
     if (prefersReducedMotion || event.pointerType !== 'mouse' || !containerRef.current) return;
-    if (event.target.closest('[data-interactive-container]') !== event.currentTarget) return;
     const bounds = containerRef.current.getBoundingClientRect();
     pointerX.set((event.clientX - bounds.left) / bounds.width - 0.5);
     pointerY.set((event.clientY - bounds.top) / bounds.height - 0.5);
@@ -85,7 +85,7 @@ export function InteractiveContainer({
       whileInView={whileInView ?? { opacity: 1, y: 0 }}
       viewport={viewport ?? { once: true, amount: 0.12 }}
       transition={transition ?? { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={prefersReducedMotion ? undefined : { ...whileHover, borderColor: 'rgba(9,187,200,0.4)' }}
+      whileHover={prefersReducedMotion ? undefined : { ...whileHover, borderColor: 'rgba(39,230,236,0.55)' }}
       whileTap={whileTap ?? { scale: 0.995 }}
       className={`interactive-container ${className}`}
     >
@@ -96,24 +96,36 @@ export function InteractiveContainer({
 
 export function RevealSection({ children, className = '', title, ...props }) {
   return (
-    <InteractiveContainer
-      as="section"
-      title={title}
-      className={className}
-      initial={{ opacity: 0, y: 30 }}
-      viewport={{ once: true, amount: 0.12 }}
+    <motion.section
+      aria-label={title}
+      className={`reveal-section ${className}`}
+      initial={{ opacity: 0, y: 28, scale: 0.99 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.14, margin: '0px 0px -8% 0px' }}
+      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
       {...props}
     >
       {children}
-    </InteractiveContainer>
+    </motion.section>
   );
 }
 
 export function MotionCard({ children, className = '', delay = 0, title, ...props }) {
   return (
-    <InteractiveContainer title={title} delay={delay} className={className} {...props}>
+    <motion.section
+      role="group"
+      aria-label={title}
+      className={`reveal-item ${className}`}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.16, margin: '0px 0px -6% 0px' }}
+      transition={{ duration: 0.58, delay, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.995 }}
+      {...props}
+    >
       {children}
-    </InteractiveContainer>
+    </motion.section>
   );
 }
 
@@ -139,15 +151,15 @@ export function LoadingSkeleton({ className = '', lines = 3 }) {
 
 export function LoadingBoundary({ loading, children }) {
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait">
       {loading ? (
         <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
           <LoadingSkeleton />
         </motion.div>
       ) : (
-        <motion.div key="loaded" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <div key="loaded">
           {children}
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

@@ -14,7 +14,7 @@ const experience = [
 
 export default function About() {
   return (
-    <RevealSection id="about" title="About / profile" className="mx-auto max-w-7xl scroll-mt-20 border-t border-white/[0.08] px-5 py-24 sm:px-8">
+    <RevealSection id="about" title="About / profile" className="editorial-section mx-auto max-w-7xl scroll-mt-20 border-t border-white/[0.08] px-5 py-24 sm:px-8">
       <div className="mb-12 max-w-2xl">
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-[#09bbc8]">01 / Profile</p>
         <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Engineering with intent.</h2>
@@ -24,8 +24,8 @@ export default function About() {
         </p>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-3">
-        <MotionCard title="Education" delay={0.05} className="surface-card p-6 lg:col-span-1">
+      <div className="editorial-facts-grid grid gap-8 md:grid-cols-3">
+        <MotionCard title="Education" delay={0.05} className="editorial-fact">
           <div className="mb-5 flex items-center gap-3 text-[#09bbc8]">
             <GraduationCap size={19} />
             <span className="font-mono text-xs uppercase tracking-widest">Education</span>
@@ -36,14 +36,14 @@ export default function About() {
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-4 font-mono text-xs text-slate-500">
             <span>2024 — Present</span>
-            <span className="rounded border border-[#09bbc8]/25 bg-[#09bbc8]/[0.06] px-2 py-1 text-[#d9fced]">GPA 3.65</span>
+            <span className="text-[#d9fced]">GPA 3.65</span>
           </div>
           <p className="mt-4 text-xs leading-6 text-slate-500">
             Data Structures, Object-Oriented Programming, DBMS, Operating Systems, and Software Architecture.
           </p>
         </MotionCard>
 
-        <MotionCard title="Experience" delay={0.12} className="surface-card p-6 lg:col-span-1">
+        <MotionCard title="Experience" delay={0.12} className="editorial-fact">
           <div className="mb-5 flex items-center gap-3 text-[#405ffa]">
             <BriefcaseBusiness size={18} />
             <span className="font-mono text-xs uppercase tracking-widest">Experience / 2026</span>
@@ -60,7 +60,7 @@ export default function About() {
           </ul>
         </MotionCard>
 
-        <MotionCard title="Awards and recognition" delay={0.19} className="surface-card p-6 lg:col-span-1">
+        <MotionCard title="Awards and recognition" delay={0.19} className="editorial-fact">
           <div className="mb-5 flex items-center gap-3 text-[#d9fced]">
             <Award size={18} />
             <span className="font-mono text-xs uppercase tracking-widest">Recognition</span>

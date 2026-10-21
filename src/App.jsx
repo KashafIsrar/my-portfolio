@@ -8,15 +8,14 @@ import Projects from './components/Projects';
 import Interests from './components/Interests';
 import Contact from './components/Contact';
 import { LoadingBoundary } from './components/Motion';
-import Starfield from './components/Starfield';
 
 function NotFound() {
   return (
-    <main className="grid min-h-screen place-items-center px-6 py-24 text-center">
+    <main className="editorial-not-found grid min-h-screen place-items-center px-6 py-24 text-center">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-xl"
+        className="not-found-content max-w-xl"
       >
         <p className="font-mono text-sm tracking-[0.3em] text-[#09bbc8]">SYSTEM ERROR: 404 //</p>
         <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-6xl">
@@ -28,7 +27,7 @@ function NotFound() {
         <motion.button
           type="button"
           onClick={() => window.location.assign('/')}
-          whileHover={{ y: -2, borderColor: 'rgba(9,187,200,0.7)' }}
+          whileHover={{ y: -2, borderColor: 'rgba(200,199,147,0.7)' }}
           whileTap={{ scale: 0.98 }}
           className="mt-8 rounded-sm border border-[#09bbc8]/50 bg-[#09bbc8]/[0.08] px-6 py-3 font-mono text-sm text-[#d9fced]"
         >
@@ -48,7 +47,7 @@ function OfflineIndicator({ online }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           role="status"
-          className="fixed bottom-4 right-4 z-[60] rounded-sm border border-[#405ffa]/40 bg-[#07240f]/95 px-4 py-2 font-mono text-xs text-[#d9fced] backdrop-blur"
+          className="editorial-offline-indicator fixed bottom-4 right-4 z-[60] rounded-sm px-4 py-2 font-mono text-xs backdrop-blur"
         >
           <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#09bbc8]" />
           OFFLINE MODE
@@ -76,10 +75,9 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="relative isolate min-h-screen overflow-x-hidden bg-[#07240f] font-sans text-slate-100">
-        <Starfield />
+      <div className="site-shell relative isolate min-h-screen overflow-x-hidden font-sans text-slate-100">
         <Navbar />
-        <main className="relative z-10 isolate overflow-x-hidden pt-16">
+        <main className="relative z-10 isolate overflow-x-hidden pt-[4.5rem]">
           <LoadingBoundary loading={false}>
             <Hero />
             <About />
